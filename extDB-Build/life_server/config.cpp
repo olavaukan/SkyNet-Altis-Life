@@ -1,3 +1,6 @@
+#define true 1
+#define false 0
+
 class DefaultEventhandlers;
 class CfgPatches 
 {
@@ -10,6 +13,31 @@ class CfgPatches
 		author[]= {"Tonic"}; 
 	};
 };
+
+/*Server Settings*/
+
+class CfgServerSettings
+{
+	class extDB
+	{
+		/*Database Selection*/
+		Database = "AltisLife"; //Database config name
+		/*RCON Settings*/
+		RCON = false; //Enabled?
+		RCON_Selection = "RCON"; //Selection of what RCON config to pull from the extDB Configuration file eg. [RCON]
+		/*VAC Settings*/
+		VAC = false; //Enabled? If you want to ban VAC'd players, edit it in the extDB Configuration file.
+		/*MISC settings*/
+		MISC = false; //Enabled? Allows you to use certain features that are not really related to the database for extDB
+		/*Logging Settings*/
+		LOG = false; //Custom Logging Enabled?
+		LOG_Settings[] = {{"HACKER","hacker.log"},{"LOG2","debug.log"}}; //First Selection = ID | Second Selection = Log File
+		/*Debug*/
+		MySQL_Query = false; //Log queries? Only set this to true if you are developing.
+	};
+};
+
+/*Functions*/
 
 class CfgFunctions
 {
@@ -62,10 +90,12 @@ class CfgFunctions
 			class wantedFetch {};
 			class wantedPerson {};
 			class wantedBounty {};
-			class wantedTicket {};
-			class wantedPardon {};
 			class wantedRemove {};
 			class wantedAdd {};
+			class wantedCrimes {};
+			class wantedProfUpdate {};
+			class wantedTicket {};
+			class wantedPardon {};
 			class wantedPunish {};
 		};
 		

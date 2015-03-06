@@ -1,3 +1,4 @@
+#include "\life_server\script_macros.hpp"
 /*
 	File: fn_insertRequest.sqf
 	Author: Bryan "Tonic" Boardwine
@@ -23,11 +24,15 @@ waitUntil{sleep (random 0.3); !DB_Async_Active};
 _tickTime = diag_tickTime;
 _queryResult = [_query,2] call DB_fnc_asyncCall;
 
-diag_log "------------- Insert Query Request -------------";
-diag_log format["QUERY: %1",_query];
-diag_log format["Time to complete: %1 (in seconds)",(diag_tickTime - _tickTime)];
-diag_log format["Result: %1",_queryResult];
-diag_log "------------------------------------------------";
+if((EQUAL(EXTDB_SETTINGS("MySQL_Query"),1))) then {
+	["diag_log",[
+		"------------- Insert Query Request -------------",
+		format["QUERY: %1",_query],
+		format["Time to complete: %1 (in seconds)",(diag_tickTime - _tickTime)],
+		format["Result: %1",_queryResult],
+		"------------------------------------------------"
+	]] call TON_fnc_logIt;
+};
 
 //Double check to make sure the client isn't in the database...
 if(typeName _queryResult == "STRING") exitWith {[[],"SOCK_fnc_dataQuery",(owner _returnToSender),false] call life_fnc_MP;}; //There was an entry!
@@ -40,7 +45,7 @@ _money = [_money] call DB_fnc_numberSafe;
 _bank = [_bank] call DB_fnc_numberSafe;
 
 //Prepare the query statement..
-_query = format["INSERT INTO players (playerid, name, cash, bankacc, aliases, cop_licenses, med_licenses, civ_licenses, civ_gear, cop_gear, med_gear) VALUES('%1', '%2', '%3', '%4', '%5','""[]""','""[]""','""[]""','""[]""','""[]""','""[]""')",
+_query = format["INSERT INTO players (playerid, name, cash, bankacc, aliases, cop_licenses, med_licenses, civ_licenses, civ_gear, cop_gear, adac_gear, adac_licenses) VALUES('%1', '%2', '%3', '%4', '%5','""[]""','""[]""','""[]""','""[]""','""[]""','""[]""','""[]""')",
 	_uid,
 	_name,
 	_money,

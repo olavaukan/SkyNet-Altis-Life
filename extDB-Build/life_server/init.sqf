@@ -66,6 +66,9 @@ onMapSingleClick "if(_alt) then {vehicle player setPos _pos};"; //Local debug fo
 	detach _var;
 } foreach ["hospital_2","hospital_3"];
 
+/*
+http://www.altisliferpg.com/topic/9697-ai-lose-all-weapons-when-spawned/
+
 {
 	if(!isPlayer _x) then {
 		_npc = _x;
@@ -76,18 +79,21 @@ onMapSingleClick "if(_alt) then {vehicle player setPos _pos};"; //Local debug fo
 		} foreach [primaryWeapon _npc,secondaryWeapon _npc,handgunWeapon _npc];
 	};
 } foreach allUnits;
+*/
 
 [8,true,12] execFSM "\life_server\FSM\timeModule.fsm";
 
 life_adminLevel = 0;
 life_medicLevel = 0;
 life_copLevel = 0;
+life_adaclevel = 0;
 CONST(JxMxE_PublishVehicle,"false");
 
 /* Setup radio channels for west/independent/civilian */
 life_radio_west = radioChannelCreate [[0, 0.95, 1, 0.8], "Side Channel", "%UNIT_NAME", []];
 life_radio_civ = radioChannelCreate [[0, 0.95, 1, 0.8], "Side Channel", "%UNIT_NAME", []];
 life_radio_indep = radioChannelCreate [[0, 0.95, 1, 0.8], "Side Channel", "%UNIT_NAME", []];
+life_radio_east = radioChannelCreate [[0, 0.95, 1, 0.8], "Side Channel", "%UNIT_NAME", []];
 
 /* Set the amount of gold in the federal reserve at mission start */
 fed_bank setVariable ["safe",count playableUnits,true];

@@ -195,12 +195,29 @@ compileFinal "
 	hint format[""Admin Message Sent To All: %1"",_msg];
 ";
 
+//To ADAC
+fnc_cell_adacrequest = 
+compileFinal "
+private[""_msg"",""_to""];
+	ctrlShow[3023,false];
+	_msg = ctrlText 3003;
+	_to = ""Adac Units"";
+	if(_msg == """") exitWith {hint ""You must enter a Message!"";ctrlShow[3023,true];};
+		
+	[[_msg,name player,6],""clientMessage"",adac,false] spawn life_fnc_MP;
+	[] call life_fnc_cellphone;
+	hint format[""You send a Message to all ADAC´s."",_to,_msg];
+	ctrlShow[3023,true];
+";
+
 publicVariable "TON_fnc_cell_textmsg";
 publicVariable "TON_fnc_cell_textcop";
 publicVariable "TON_fnc_cell_textadmin";
 publicVariable "TON_fnc_cell_adminmsg";
 publicVariable "TON_fnc_cell_adminmsgall";
 publicVariable "TON_fnc_cell_emsrequest";
+publicVariable "fnc_cell_adacrequest";
+
 //Client Message
 /*
 	0 = private message
@@ -282,6 +299,14 @@ compileFinal "
 			
 			[""TextMessage"",[format[""EMS Request from %1"",_from]]] call bis_fnc_showNotification;
 		};
+		
+		case 6: {
+			private[""_message""];
+			_message = format[""!!!ADAC REQUEST: %1"",_msg];
+			hint parseText format [""<t color='#FFCC00'><t size='2'><t align='center'>ADAC Request<br/><br/><t color='#33CC33'><t align='left'><t size='1'>To: <t color='#ffffff'>You<br/><t color='#33CC33'>From: <t color='#ffffff'>%1<br/><br/><t color='#33CC33'>Message:<br/><t color='#ffffff'>%2"",_from,_msg];
+			
+			[""TextMessage"",[format[""ADAC Request from %1"",_from]]] call bis_fnc_showNotification;
+		}; 		
 	};
 ";
 publicVariable "TON_fnc_clientMessage";

@@ -31,7 +31,10 @@
 #define EXTDB_FAILED(MESSAGE) \
 	life_server_extDB_notLoaded = [true,##MESSAGE]; \
 	PVAR_ALL("life_server_extDB_notLoaded"); \
-	diag_log MESSAGE;
+	["diag_log",[MESSAGE]] call TON_fnc_logIt;
+#define EXTDB "extDB" callExtension
+#define RCON_SELECTION getText(configFile >> "CfgServerSettings" >> "extDB" >> "RCON_Selection")
+#define DATABASE_SELECTION getText(configFile >> "CfgServerSettings" >> "extDB" >> "Database")
 
 //Display Macros
 #define CONTROL(disp,ctrl) ((findDisplay ##disp) displayCtrl ##ctrl)
@@ -62,6 +65,8 @@
 #define M_CONFIG(TYPE,CFG,CLASS,ENTRY) TYPE(missionConfigFile >> CFG >> CLASS >> ENTRY)
 #define BASE_CONFIG(CFG,CLASS) inheritsFrom(configFile >> CFG >> CLASS)
 #define LIFE_SETTINGS(TYPE,SETTING) TYPE(missionConfigFile >> "Life_Settings" >> SETTING)
+#define EXTDB_SETTINGS(SETTING) getNumber(configFile >> "CfgServerSettings" >> "extDB" >> SETTING)
+#define EXTDB_LOGAR getArray(configFile >> "CfgServerSettings" >> "extDB" >> "LOG_Settings")
 #define CONFIG_VEHICLES "CfgVehicles"
 #define CONFIG_WEAPONS "CfgWeapons"
 #define CONFIG_MAGAZINES "CfgMagazines"
