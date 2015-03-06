@@ -29,10 +29,7 @@ class FSM
     class Init
     {
       name = "Init";
-      init = /*%FSM<STATEINIT""">*/"private [""_skipDay"", ""_skipNight"", ""_method"", ""_fastNight"", ""_sunState""];" \n
-       "_skipDay = [_this,0,8,[0]] call BIS_fnc_param;" \n
-       "_fastNight = [_this,1,false,[true]] call BIS_fnc_param;" \n
-       "_skipNight = [_this,2,12,[0]] call BIS_fnc_param;"/*%FSM</STATEINIT""">*/;
+      init = /*%FSM<STATEINIT""">*/"private [""_skipDay"", ""_skipNight"", ""_method"", ""_fastNight"", ""_sunState""]; _skipDay = [_this,0,8,[0]] call BIS_fnc_param; _fastNight = [_this,1,false,[true]] call BIS_fnc_param; _skipNight = [_this,2,12,[0]] call BIS_fnc_param;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -53,14 +50,7 @@ class FSM
     class Apply_Time_Multi
     {
       name = "Apply_Time_Multi";
-      init = /*%FSM<STATEINIT""">*/"if(_fastNight && {sunOrMoon == 0}) then {" \n
-       "	setTimeMultiplier _skipNight;" \n
-       "} else {" \n
-       "	setTimeMultiplier _skipDay;" \n
-       "};" \n
-       "" \n
-       "private ""_sunState"";" \n
-       "_sunState = sunOrMoon;"/*%FSM</STATEINIT""">*/;
+      init = /*%FSM<STATEINIT""">*/"if(_fastNight && {sunOrMoon == 0}) then { setTimeMultiplier _skipNight; } else { setTimeMultiplier _skipDay; }; private ""_sunState""; _sunState = sunOrMoon;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
