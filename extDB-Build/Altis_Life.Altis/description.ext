@@ -1,6 +1,6 @@
 author = "Tonic";
 onLoadName = "Altis Life RPG v4.0";
-onLoadMission = "A RPG game mode developed by Tonic";
+onLoadMission = "An RPG game mode developed by Tonic";
 joinUnassigned = 1;
 respawn = BASE;
 respawndelay = 5;
@@ -172,4 +172,13 @@ class CfgNotifications
 		duration = 10;
 		priority = 5;
 	};
+	
+	class AdacMessage
+	{
+		title = "Adac Message";
+		iconPicture = "icons\messagenew.paa";
+		description = "%1";
+		duration = 10;
+		priority = 5;
+	};		
 };

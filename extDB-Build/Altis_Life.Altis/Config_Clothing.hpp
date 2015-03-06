@@ -29,21 +29,32 @@ class Clothing {
 			{ "U_C_HunterBody_grn", "The Hunters Look", 1500, { "", "", -1 } },
 			{ "U_C_WorkerCoveralls", "Mechanic Coveralls", 2500, { "", "", -1 } },
 			{ "U_OrestesBody", "Surfing On Land", 1100, { "", "", -1 } },
-			{ "U_NikosAgedBody", "Casual Wears", 5000, { "", "", -1 } }
+			{ "U_NikosAgedBody", "Casual Wears", 5000, { "", "", -1 } },			
+			{ "U_NikosBody", "", 1500, { "", "", -1 } },
+			{ "U_Competitor", "", 1500, { "", "", -1 } },
+			{ "U_IG_Guerilla2_1", "", 1500, { "", "", -1 } },
+			{ "U_IG_Guerilla3_2", "", 1500, { "", "", -1 } },
+			{ "U_BG_Guerilla3_1", "", 1500, { "", "", -1 } },
+			{ "U_OG_Guerilla2_2", "", 1500, { "", "", -1 } },
+			{ "U_C_Poor_1", "", 1500, { "", "", -1 } },
+			{ "U_C_WorkerCoveralls", "", 1500, { "", "", -1 } }			
 		};
 
 		headgear[] = {
 			{ "NONE", "Remove Hat", 0, { "", "", -1 } },
+			{ "H_Bandanna_khk_hs", "", 150, { "", "", -1 } },
 			{ "H_Bandanna_camo", "Camo Bandanna", 120, { "", "", -1 } },
 			{ "H_Bandanna_surfer", "Surfer Bandanna", 130, { "", "", -1 } },
 			{ "H_Bandanna_gry", "Grey Bandanna", 150, { "", "", -1 } },
 			{ "H_Bandanna_cbr", "", 165, { "", "", -1 } },
-			{ "H_Bandanna_surfer", "", 135, { "", "", -1 } },
 			{ "H_Bandanna_khk", "Khaki Bandanna", 145, { "", "", -1 } },
 			{ "H_Bandanna_sgg", "Sage Bandanna", 160, { "", "", -1 } },
 			{ "H_StrawHat", "Straw Fedora", 225, { "", "", -1 } },
 			{ "H_BandMask_blk", "Hat & Bandanna", 300, { "", "", -1 } },
 			{ "H_Booniehat_tan", "", 425, { "", "", -1 } },
+			{ "H_Booniehat_khk", "", 150, { "", "", -1 } },
+			{ "H_Booniehat_indp", "", 150, { "", "", -1 } },
+			{ "H_Booniehat_dgtl", "", 150, { "", "", -1 } },
 			{ "H_Hat_blue", "", 310, { "", "", -1 } },
 			{ "H_Hat_brown", "", 276, { "", "", -1 } },
 			{ "H_Hat_checker", "", 340, { "", "", -1 } },
@@ -54,7 +65,13 @@ class Clothing {
 			{ "H_Cap_grn_BI", "", 150, { "", "", -1 } },
 			{ "H_Cap_oli", "", 150, { "", "", -1 } },
 			{ "H_Cap_red", "", 150, { "", "", -1 } },
-			{ "H_Cap_tan", "", 150, { "", "", -1 } }
+			{ "H_Cap_tan", "", 150, { "", "", -1 } },
+			{ "H_Cap_headphones", "", 150, { "", "", -1 } },			
+			{ "H_Beret_grn_SF", "", 150, { "", "", -1 } },
+			{ "H_Beret_Colonel", "", 150, { "", "", -1 } },
+			{ "H_MilCap_rucamo", "", 150, { "", "", -1 } },
+			{ "H_Shemag_khk", "", 150, { "", "", -1 } },
+			{ "H_Watchcap_sgg", "", 150, { "", "", -1 } }
 		};
 
 		goggles[] = {
@@ -75,7 +92,9 @@ class Clothing {
 		};
 
 		vests[] = {
-			{ "NONE", "Remove Vest", 0, { "", "", -1 } }
+			{ "NONE", "Remove Vest", 0, { "", "", -1 } },
+			{ "V_Rangemaster_belt", "", 800, { "", "", -1 } },
+			{ "V_Press_F", "", 800, { "", "", -1 } }
 		};
 
 		backpacks[] = {

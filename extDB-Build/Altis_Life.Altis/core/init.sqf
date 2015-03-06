@@ -67,6 +67,12 @@ switch (playerSide) do {
 		_handle = [] spawn life_fnc_initMedic;
 		waitUntil {scriptDone _handle};
 	};
+	case east:
+	{
+		//Initialize ADAC and blah
+		_handle = [] spawn life_fnc_initAdac;
+		waitUntil {scriptDone _handle};
+	};	
 };
 
 player SVAR ["restrained",false,true];
@@ -107,3 +113,4 @@ life_fnc_moveIn = compileFinal
 
 CONSTVAR(life_paycheck); //Make the paycheck static.
 if(EQUAL(LIFE_SETTINGS(getNumber,"enable_fatigue"),0)) then {player enableFatigue false;};
+[[getPlayerUID player,player getVariable["realname",name player]],"life_fnc_wantedProfUpdate",false,false] spawn life_fnc_MP;

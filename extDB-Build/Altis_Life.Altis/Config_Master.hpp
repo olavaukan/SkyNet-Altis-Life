@@ -20,13 +20,14 @@
 #define true 1
 #define false 0
 #include "Config_Clothing.hpp"
+#include "Config_Shops.hpp"
 
 /*
 	Master settings for various features and functionality	
 */
 class Life_Settings {
 	/* Persistent Settings */
-	save_civ_weapons = false; //Allow civilians to save weapons on them?
+	save_civ_weapons = true; //Allow civilians to save weapons on them?
 	save_virtualItems = true; //Save Virtual items (all sides)?
 
 	/* Revive system settings */
@@ -44,6 +45,7 @@ class Life_Settings {
 	/* Player-related systems */
 	enable_fatigue = true; //Set to false to disable the ARMA 3 false system.
 	total_maxWeight = 24; //Static variable for the maximum weight allowed without having a backpack
+	total_maxWeightT = 24;  //Static variable for the maximum weight allowed without having a backpack
 	paycheck_period = 5; //Scaled in minutes
 	
 	/* Impound Variables */
@@ -57,6 +59,16 @@ class Life_Settings {
 	/* Job-related stuff */
 	delivery_points[] = { "dp_1", "dp_2", "dp_3", "dp_4", "dp_5", "dp_6", "dp_7", "dp_8", "dp_9", "dp_10", "dp_11", "dp_12", "dp_13", "dp_14", "dp_15", "dp_15", "dp_16", "dp_17", "dp_18", "dp_19", "dp_20", "dp_21", "dp_22", "dp_23", "dp_24", "dp_25" };
 
+	crimes[] = { 
+		{"STR_Crime_1","350","1"}, 
+		{"STR_Crime_2","1500","2"}, 
+		{"STR_Crime_3","2500","3"}, 
+		{"STR_Crime_4","3500","4"}, 
+		{"STR_Crime_5","10000","5"}, 
+		{"STR_Crime_6","5000","6"}, 
+		{"STR_Crime_7","10000","7"} 
+	};
+	
 	sellArray[] = {
 		{"arifle_sdar_F", 7500},
 		{"hgun_P07_snds_F", 650},
@@ -99,6 +111,8 @@ class Life_Settings {
 		{"30Rnd_45ACP_Mag_SMG_01", 60},
 		{"30Rnd_9x21_Mag", 30}
 	};
+	
+	allowedSavedVirtualItems[] = { "pickaxe", "fuelEmpty", "fuelFull", "spikeStrip", "lockpick", "defuseKit", "storageSmall", "storageBig", "redgull", "coffee", "waterBottle", "apple", "peach", "tbacon", "donut", "rabbitGrilled", "salemaGrilled", "ornateGrilled", "mackerelGrilled", "tunaGrilled", "mulletGrilled", "catsharkGrilled", "turtleSoup", "henGrilled", "roosterGrilled", "sheepGrilled", "goatGrilled" };	
 };
 
 //Virtual Items
@@ -286,3 +300,4 @@ class VirtualShops {
 };
 
 #include "Config_Vehicles.hpp"
+#include "Config_Houses.hpp"

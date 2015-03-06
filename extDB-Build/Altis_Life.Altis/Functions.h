@@ -25,6 +25,7 @@ class Life_Client_Core
 		class initCiv {};
 		class initCop {};
 		class initMedic {};
+		class initAdac {};
 		class welcomeNotification {};
 		class survival {};
 	};
@@ -91,6 +92,7 @@ class Life_Client_Core
 		class captureHideout {};
 		class gather {};
 		class gutAnimal {};
+		class surrender {};
 	};
 	
 	class Housing
@@ -120,6 +122,7 @@ class Life_Client_Core
 		class weaponShopCfg {};
 		class vehicleWeightCfg {};
 		class houseConfig {};
+		class adacDefault {};
 	};
 
 	class Player_Menu
@@ -128,6 +131,7 @@ class Life_Client_Core
 		class wantedList {};
 		class wantedInfo {};
 		class wantedMenu {};
+		class wantedAddP {};
 		class pardon {};
 		class giveItem {};
 		class giveMoney {};
@@ -262,6 +266,7 @@ class Life_Client_Core
 		class fedCamDisplay {};
 		class copLoadout {};
 		class ticketPaid {};
+		class wantedGrab {};
 	};
 	
 	class Gangs
@@ -344,4 +349,12 @@ class Life_Client_Core
 		class gangDeposit {};
 		class wireTransfer {};
 	};
+	
+	class Adac
+	{
+		file = "core\adac";
+		class loadGear {};
+		class saveGear {};
+		class adacLoadout {};
+	};		
 };

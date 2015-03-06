@@ -17,7 +17,7 @@ _return pushBack backpack player;
 _return pushBack goggles player;
 _return pushBack headgear player;
 _return pushBack assignedITems player;
-if(playerSide == west || playerSide == civilian && {EQUAL(LIFE_SETTINGS(getNumber,"save_civ_weapons"),1)}) then {
+if(playerSide == independent || playerSide == west || playerSide == east || playerSide == civilian && {EQUAL(LIFE_SETTINGS(getNumber,"save_civ_weapons"),1)}) then {
     _return pushBack RIFLE;
     _return pushBack PISTOL;
 } else {
@@ -137,10 +137,7 @@ if(count (PISTOL_ITEMS) > 0) then {
     if (_val > 0) then {
 		_yItems pushBack [_x,_val];
     };
-} forEach [
-	"pickaxe","fuelEmpty","fuelFull", "spikeStrip", "lockpick", "defuseKit","storageSmall","storageBig","redgull","coffee","waterBottle","apple","peach","tbacon","donut",
-	"rabbitGrilled","salemaGrilled","ornateGrilled","mackerelGrilled","tunaGrilled","mulletGrilled","catsharkGrilled","turtleSoup","henGrilled","roosterGrilled","sheepGrilled","goatGrilled"
-];
+} forEach LIFE_SETTINGS(getArray,"allowedSavedVirtualItems");
 
 _return pushBack _uItems;
 _return pushBack _uMags;

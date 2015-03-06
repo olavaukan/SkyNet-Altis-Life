@@ -42,6 +42,7 @@ life_clothing_purchase = [-1,-1,-1,-1,-1];
 *****************************
 */
 life_maxWeight = LIFE_SETTINGS(getNumber,"total_maxWeight");
+life_maxWeightT = LIFE_SETTINGS(getNumber,"total_maxWeightT");
 life_carryWeight = 0; //Represents the players current inventory weight (MUST START AT 0).
 
 /*
@@ -62,19 +63,24 @@ life_vehicles = [];
 
 switch (playerSide) do {
 	case west: {
-		BANK = 7000; //Starting Bank Money
-		life_paycheck = 500; //Paycheck Amount
+		BANK = 50000; //Starting Bank Money
+		life_paycheck = 5000; //Paycheck Amount
 	};
 	
 	case civilian: {
-		BANK = 3000; //Starting Bank Money
-		life_paycheck = 350; //Paycheck Amount
+		BANK = 50000; //Starting Bank Money
+		life_paycheck = 5000; //Paycheck Amount
 	};
 	
 	case independent: {
-		BANK = 6500;
-		life_paycheck = 450;
+		BANK = 50000;
+		life_paycheck = 5000;
 	};
+	
+	case east: {
+		BANK = 50000;
+		life_paycheck = 5000;
+	};	
 };
 
 /*

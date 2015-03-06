@@ -10,10 +10,11 @@ class CarShops {
 		vehicles[] = {
 			{ "B_Quadbike_01_F", 2500, "" }, 
 			{ "C_Hatchback_01_F", 9500, "driver" }, 
-			{ "C_Offroad_01_F", 12500, "driver" },
+			{ "C_Offroad_01_F", 25000, "driver" },
 			{ "C_SUV_01_F", 30000, "driver" },
 			{ "C_Hatchback_01_sport_F", 40000, "driver" },
-			{ "C_Van_01_transport_F", 45000, "driver" }
+			{ "C_Van_01_transport_F", 114000, "driver" },
+			{ "I_G_Van_01_fuel_F", 165000, "driver" }
 		};
 	};
 
@@ -48,8 +49,8 @@ class CarShops {
 	class civ_truck {
 		side = "civ";
 		vehicles[] = {
-			{ "C_Van_01_box_F", 60000, "trucking" },
-			{ "I_Truck_02_transport_F", 75000, "trucking" },
+			{ "C_Van_01_box_F", 125000, "trucking" },
+			{ "I_Truck_02_transport_F", 140000, "trucking" },
 			{ "I_Truck_02_covered_F", 100000, "trucking" },
 			{ "B_Truck_01_transport_F", 275000, "trucking" },
 			{ "O_Truck_03_transport_F", 200000, "trucking" },
@@ -83,7 +84,10 @@ class CarShops {
 		side = "civ";
 		vehicles[] = {
 			{ "B_Heli_Light_01_F", 253000, "pilot" },
-			{ "O_Heli_Light_02_unarmed_F", 750000, "pilot" }
+			{ "O_Heli_Light_02_unarmed_F", 750000, "pilot" },
+			{ "B_Heli_Attack_01_F", 20000, "pilot" },
+			{ "B_Heli_Transport_01_F", 20000, "pilot" },
+			{ "B_Heli_Transport_01_camo_F", 20000, "pilot" }			
 		};
 	};
 

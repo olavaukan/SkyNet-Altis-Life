@@ -22,7 +22,7 @@ if(!dialog) then {
 disableSerialization;
 _curTarget = [_this,0,ObjNull,[ObjNull]] call BIS_fnc_param;
 if(isNull _curTarget) exitWith {closeDialog 0;}; //Bad target
-_houseCfg = [(typeOf _curTarget)] call life_fnc_houseConfig;
+_houseCfg = M_CONFIG(getNumber,"Houses",typeOf(_curTarget),"price");
 if(EQUAL(count _houseCfg,0)) exitWith {closeDialog 0;};
 
 _Btn1 = CONTROL(37400,Btn1);

@@ -7,6 +7,7 @@
 */
 private["_display","_list","_uid"];
 disableSerialization;
+if(playerside != west) exitWith {};
 
 _display = findDisplay 2400;
 _list = _display displayCtrl 2402;
@@ -17,4 +18,4 @@ if(typeName _data != "ARRAY") exitWith {};
 if(count _data == 0) exitWith {};
 
 _uid = _data select 1;
-[[_uid],"life_fnc_wantedPardon",false,false] call life_fnc_MP;
+[[_uid],"life_fnc_wantedRemove",false,false] spawn life_fnc_MP;

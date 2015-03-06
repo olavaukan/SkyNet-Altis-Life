@@ -17,7 +17,7 @@ if(!license_civ_home) exitWith {hint localize "STR_House_License"};
 if(count life_houses >= (LIFE_SETTINGS(getNumber,"house_limit"))) exitWith {hint format[localize "STR_House_Max_House",LIFE_SETTINGS(getNumber,"house_limit")]};
 closeDialog 0;
 
-_houseCfg = [(typeOf _house)] call life_fnc_houseConfig;
+_houseCfg = [M_CONFIG(getNumber,"Houses",typeOf(_house),"price"),M_CONFIG(getNumber,"Houses",typeOf(_house),"maxStorage")];
 if(EQUAL(count _houseCfg,0)) exitWith {};
 
 _action = [
