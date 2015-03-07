@@ -4,7 +4,7 @@ Write-Host "##              Building 'Altis_Life.Altis.pbo' using MakePbo.exe...
 Write-Host "################################################################################################"
 Write-Host
 
-BuildTools\MakePbo.exe -RT -L -P extDB-Build\Altis_Life.Altis
+BuildTools\MakePbo.exe -P extDB-Build\Altis_Life.Altis
 
 Write-Host
 Write-Host "################################################################################################"
@@ -16,7 +16,7 @@ Write-Host "##              Building 'life_server.pbo' using MakePbo.exe...     
 Write-Host "################################################################################################"
 Write-Host
 
-BuildTools\MakePbo.exe -RT -L -P extDB-Build\life_server
+BuildTools\MakePbo.exe -P extDB-Build\life_server
 
 Write-Host
 Write-Host "################################################################################################"
