@@ -109,10 +109,11 @@ class Life_Settings {
 		{"SMG_01_F", 1500},
 		{"arifle_Mk20C_F", 4500},
 		{"30Rnd_45ACP_Mag_SMG_01", 60},
-		{"30Rnd_9x21_Mag", 30}
+		{"30Rnd_9x21_Mag", 30}		
 	};
 	
 	allowedSavedVirtualItems[] = { "pickaxe", "fuelEmpty", "fuelFull", "spikeStrip", "lockpick", "defuseKit", "storageSmall", "storageBig", "redgull", "coffee", "waterBottle", "apple", "peach", "tbacon", "donut", "rabbitGrilled", "salemaGrilled", "ornateGrilled", "mackerelGrilled", "tunaGrilled", "mulletGrilled", "catsharkGrilled", "turtleSoup", "henGrilled", "roosterGrilled", "sheepGrilled", "goatGrilled" };	
+	
 };
 
 //Virtual Items

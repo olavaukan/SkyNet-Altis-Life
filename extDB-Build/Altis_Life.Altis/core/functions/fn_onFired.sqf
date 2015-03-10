@@ -4,6 +4,7 @@
 	Description:
 	Handles various different ammo types being fired.
 */
+
 private["_ammoType","_projectile"];
 _ammoType = _this select 4; 
 _projectile = _this select 6;
@@ -18,3 +19,4 @@ if(_ammoType == "GrenadeHand_stone") then {
 		[[_position],"life_fnc_flashbang",true,false] call life_fnc_MP;
 	};
 };
+

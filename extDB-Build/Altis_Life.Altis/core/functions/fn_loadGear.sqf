@@ -13,6 +13,12 @@ waitUntil {!(isNull (findDisplay 46))};
 _handle = [] spawn life_fnc_stripDownPlayer;
 waitUntil {scriptDone _handle};
 
+// Cleanup player, ref http://www.altisliferpg.com/topic/6405-fixed-the-full-equipted-spawn-for-copsmed/
+removeAllContainers player;
+removeAllWeapons player;
+removeGoggles player;
+removeHeadGear player;
+
 if(EQUAL(count _itemArray,0)) exitWith {
     switch(playerSide) do {
         case west: {
