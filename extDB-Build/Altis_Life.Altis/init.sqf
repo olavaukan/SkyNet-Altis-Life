@@ -19,3 +19,15 @@ mdh_nuke_colorcorrection	= 1;	// COLLORCORRECTION AFTER NUKEDETONATION 1=ON, 0=O
 // Dynamic Civilian Life
 // http://www.armaholic.com/page.php?id=23644
 [] execVM "DCL\init.sqf";
+
+/* Global say3D: http://www.armaholic.com/forums.php?m=posts&q=29978 */
+fn_netSay3D = compile preprocessFileLineNumbers "fn_netSay3D.sqf";
+if (isNil "PVEH_netSay3D") then {
+    PVEH_NetSay3D = [objNull,0];
+};
+
+"PVEH_netSay3D" addPublicVariableEventHandler {
+      private["_array"];
+      _array = _this select 1;
+     (_array select 0) say3D (_array select 1);
+};

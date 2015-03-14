@@ -64,6 +64,13 @@ class CfgSounds
 		sound[] = {"\sounds\flashbang.ogg", 1.0, 1};
 		titles[] = {};
 	};
+	
+	class allahuAkbar
+	{
+		name = "allahuAkbar";
+		sound[] = {"\sounds\allahuAkbar.ogg", 1.0, 1};
+		titles[] = {};
+	};	
 };
 
 class CfgDebriefing

@@ -78,7 +78,7 @@ private ["_count","_done","_check","_listclose","_listclosealive","_sleep","_ran
 //_weaponarr = ["Sa61_EP1","UZI_EP1","revolver_EP1","Makarov"];
 
  //Modify and de-comment this array for the randomized weapon selection in ArmA3.
-_weaponarr = ["hgun_Rook40_F","hgun_P07_F","hgun_ACPC2_F","hgun_PDW2000_F"];
+_weaponarr = ["hgun_Rook40_F","hgun_P07_F","SMG_02_F","hgun_PDW2000_F"];
 
 //can be any value between 0 and 1. if 1 the sleepers flee as long as they are disguised, if 0 they are less prone to (but still might)
 _flee = 0.5;
@@ -283,11 +283,12 @@ while {alive _unit} do {
 		//This abomination checks a) if there are enough targets in _listclosealive and b) wether _target1 is close (if _target1 is a side it just checks out)
 		if (((count _listclosealive) >= _target2) && ((_target1 in _listclosealive)||(typename _target1 == "SIDE"))) then {
 
-				//DEBUG
-				if (_debug) then {
-				_string = format ["ws_assassins.sqf DEBUG: Civ targeting _listclosealive: %2, sleeping %3",_target1, _listclosealive,_sleep];
-				player globalchat _string;
-				};
+			//DEBUG
+			if (_debug) then {
+			_string = format ["ws_assassins.sqf DEBUG: Civ targeting _listclosealive: %2, sleeping %3",_target1, _listclosealive,_sleep];
+			player globalchat _string;
+			};
+			
 			doStop _unit;
 			[_unit] joinSilent grpNull;
 			_unit allowFleeing 0;
@@ -302,11 +303,14 @@ while {alive _unit} do {
 			_unit addWeapon _weapon;
 			_unit selectWeapon _weapon;
 
-				if (typename _target1 == "OBJECT") then {
-					_victim = _target1;
-				} else {
-					_victim = (_listclosealive select (floor(random(count _listclosealive))));
-				};
+			if (typename _target1 == "OBJECT") then {
+				_victim = _target1;
+			} else {
+				_victim = (_listclosealive select (floor(random(count _listclosealive))));
+			};
+
+			// Shout "Allahu Akbar!" on all clients
+			[_unit,"allahuAkbar"] call fn_netSay3D;
 
 			while {alive _victim && alive _unit} do {
 				doStop _unit; _unit doTarget _victim; _unit doFire _victim; sleep 0.5;
