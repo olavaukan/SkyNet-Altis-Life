@@ -307,6 +307,7 @@ while {alive _unit} do {
 
 			// Shout "Allahu Akbar!" on all clients
 			[_unit,"allahuAkbar"] call fn_netSay3D;
+			[[0,format["%1 is a sleeper agent!", name _unit]],"life_fnc_broadcast",true,false] spawn life_fnc_MP;
 
 			while {alive _victim && alive _unit} do {
 				doStop _unit; _unit doTarget _victim; _unit doFire _victim; sleep 0.5;

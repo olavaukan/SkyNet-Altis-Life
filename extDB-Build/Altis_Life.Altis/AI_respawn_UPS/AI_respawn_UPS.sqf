@@ -13,6 +13,7 @@ _side 			= _this select 6;
 _AI_unitArray	= _this select 7;
 _AI_magArray	= _this select 8;
 _AI_wepArray	= _this select 9; 
+_AI_skillArray	= _this select 10;
 
 _unitsGroup = units (group _unit);
 
@@ -50,7 +51,7 @@ for [{ _loop = 0 },{ _loop < count  _unitsGroup},{ _loop = _loop + 1}] do
 };
 {_x enableAI "MOVE"} forEach _unitsGroup;
 _leader = leader _group;
-[_leader, _lives, _delay, _respawn_point, _marker, _group, _side, _AI_unitArray,_AI_magArray, _AI_wepArray] execVM "AI_respawn_UPS\AI_respawn_UPS.sqf"; 	
+[_leader, _lives, _delay, _respawn_point, _marker, _group, _side, _AI_unitArray,_AI_magArray, _AI_wepArray, _AI_skillArray] execVM "AI_respawn_UPS\AI_respawn_UPS.sqf"; 	
 [_leader, _marker] execVM "AI_respawn_UPS\UPS_init.sqf";
 
 if (true) exitWith {};

@@ -312,7 +312,8 @@ while {alive _unit} do {
 
 			// Shout "Allahu Akbar!" on all clients
 			[_unit,"allahuAkbar"] call fn_netSay3D;
-
+			[[0,format["%1 is a suicide bomber!", name _unit]],"life_fnc_broadcast",true,false] spawn life_fnc_MP;
+						
 			while {alive _victim && alive _unit} do {
 
 				_pos = position _victim;
@@ -324,6 +325,7 @@ while {alive _unit} do {
 				
 					// Shout "Allahu Akbar!" on all clients
 					[_unit,"allahuAkbar"] call fn_netSay3D;
+					[[0,format["%1 has detonated a suicide belt!",name _unit]],"life_fnc_broadcast",true,false] spawn life_fnc_MP;
 					
 					sleep 0.5;
 					

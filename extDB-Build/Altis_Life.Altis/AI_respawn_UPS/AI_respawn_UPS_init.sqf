@@ -8,7 +8,8 @@ _lives			= _this select 1;
 _delay 			= _this select 2;
 _respawn_point	= _this select 3;
 _marker			= _this select 4;
-_unitsGroup 	= units (group _unit);
+_group 			= group _unit;
+_unitsGroup 	= units _group;
 _side 			= side _unit; 
 
 sleep 2;
