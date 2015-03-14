@@ -39,6 +39,7 @@ _name selectWeapon (primaryWeapon _name);
 sleep 7;
 [_name] execVM _move_script;
 
+_unit spawn tlq_killTicker; //  Attach kill ticker
 
 if (true) exitWith {};
 

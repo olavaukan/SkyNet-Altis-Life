@@ -35,3 +35,7 @@ if (isNil "PVEH_netSay3D") then {
 // Simple Earplugs Script
 // http://www.armaholic.com/page.php?id=26624
 [player] execVM "simpleEP.sqf";
+
+// Basic Killticker
+// http://www.armaholic.com/page.php?id=19101
+null = execVM "killTicker.sqf";

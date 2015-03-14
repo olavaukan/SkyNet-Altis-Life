@@ -43,7 +43,9 @@ for [{ _loop = 0 },{ _loop < count  _unitsGroup},{ _loop = _loop + 1}] do
 	if (_loop == 0) then {_guy moveInDriver _vcl_new};
 	if (_loop == 1) then {_guy moveInGunner _vcl_new};	
 	if (_loop == 2) then {_guy moveInCommander _vcl_new}; 
-	 
+	
+	_guy spawn tlq_killTicker; //  Attach kill ticker
+	
 	sleep 0.1;
 };
 {_x enableAI "MOVE"} forEach _unitsGroup;

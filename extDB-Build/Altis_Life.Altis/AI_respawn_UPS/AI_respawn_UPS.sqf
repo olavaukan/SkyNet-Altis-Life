@@ -46,7 +46,10 @@ for [{ _loop = 0 },{ _loop < count  _unitsGroup},{ _loop = _loop + 1}] do
 	{_guy addMagazine _x} forEach (_AI_magArray select _loop);
 	{_guy addWeapon _x}   forEach (_AI_wepArray select _loop);
 	_guy selectWeapon (primaryWeapon _guy);
-	_guy setSkill (_AI_skillArray select _loop);
+	_guy setSkill (_AI_skillArray select _loop);	
+	
+	_guy spawn tlq_killTicker; //  Attach kill ticker
+	
 	sleep 0.1;
 };
 {_x enableAI "MOVE"} forEach _unitsGroup;
