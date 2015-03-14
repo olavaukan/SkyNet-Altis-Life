@@ -61,6 +61,9 @@
 	
 	//  Make 10% of the civilians into "terrorists" that will attack any cop within 50 meters
 	{[_x,"",10,50,west,1,1] execVM "ws_assassins.sqf";} foreach (units _group);	
+
+	//  Make 10% of the civilians into "suicide bombers" that will attack any cop within 20 meters
+	{[_x,"",10,20,west,1,1] execVM "ws_suicidebombers.sqf";} foreach (units _group);	
 	
 	while { count (units _group) > 0 } do {
 		if(count _allunits == 0) then {

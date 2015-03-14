@@ -3,6 +3,8 @@ By Wolfenswan [FA]: wolfenswanarps@gmail.com | folkarps.com
 Video showcase: https://www.youtube.com/watch?v=wLw7mqZDpgk
 Laste Update: 04.10.2013
 
+MODIFICATIONS
+This version has been modified to make the civilian into a suicide bomber, using explosives instead of firearms.
 
 FEATURE
 Turns a select number or all civilians into "sleeper agents", attacking either a side or a specific target
@@ -78,7 +80,7 @@ private ["_count","_done","_check","_listclose","_listclosealive","_sleep","_ran
 //_weaponarr = ["Sa61_EP1","UZI_EP1","revolver_EP1","Makarov"];
 
  //Modify and de-comment this array for the randomized weapon selection in ArmA3.
-_weaponarr = ["hgun_Rook40_F","hgun_P07_F","SMG_02_F","hgun_PDW2000_F"];
+_weaponarr = ["Bo_Mk82"];
 
 //can be any value between 0 and 1. if 1 the sleepers flee as long as they are disguised, if 0 they are less prone to (but still might)
 _flee = 0.5;
@@ -133,7 +135,7 @@ if (count _this > 6) then {_skill = _this select 6};
 
 //DEBUG
 if (_debug) then {
-player globalchat format ["ws_assassins.sqf DEBUG: _unit:%1,_target1:%2,target2:%3,_weapon:%4,chance:%5, _radius:%6, _skill: %7",_unit,_target1,_target2,_weapon,_chance,_trgsize, _skill];
+	player globalchat format ["ws_suicidebomber.sqf DEBUG: _unit:%1,_target1:%2,target2:%3,_weapon:%4,chance:%5, _radius:%6, _skill: %7",_unit,_target1,_target2,_weapon,_chance,_trgsize, _skill];
 };
 
 //LOCAL VARIABLES - helpers
@@ -159,49 +161,55 @@ if (typename _unit == "BOOL") then {_check = _unit};
 _civarray = [];
 if (_check) exitWith {
 	{if (((side _x) == civilian) && !(isplayer _x)) then {_civarray = _civarray + [_x]}} forEach allUnits;
-	{[_x,_weapon,_chance,_trgsize,_target1,_target2,_skill] execVM "ws_assassins.sqf";} forEach _civarray;
+	{[_x,_weapon,_chance,_trgsize,_target1,_target2,_skill] execVM "ws_suicidebombers.sqf";} forEach _civarray;
 
 	//DEBUG
-	if (_debug) then {player globalchat format ["ws_assassins.sqf DEBUG: _check is %1, script will be run on _civarray:%2",_check,_civarray];};
+	if (_debug) then {player globalchat format ["ws_suicidebombers.sqf DEBUG: _check is %1, script will be run on _civarray:%2",_check,_civarray];};
+};
+
+//If the unit is already an assassin he can't also be a suicide bomber
+_handle = _unit getVariable ["ws_assassin_selected",false];
+if (_handle) exitWith {
+	if (_debug) then {player globalchat format ["ws_suicidebombers.sqf DEBUG: _unit:%1 has ws_assassin_selected handle:%2, exiting",_unit,_handle];};
 };
 
 //If the unit has already been touched by the script there's no need to execute the script again
-_handle = _unit getVariable ["ws_assassin",false];
+_handle = _unit getVariable ["ws_suicidebomber",false];
 if (_handle) exitWith {
-	if (_debug) then {player globalchat format ["ws_assassins.sqf DEBUG: _unit:%1 has ws_assassin handle:%2, exiting",_unit,_handle];};
+	if (_debug) then {player globalchat format ["ws_suicidebombers.sqf DEBUG: _unit:%1 has ws_suicidebomber handle:%2, exiting",_unit,_handle];};
 };
+
 //If the civ fails the chance check there's no need to run anything else; We set the flag to make sure he's not affected again
 //Also, women can't be assassins, ARMA is sexist that way. No assassinesses (assassinas? assassinetten?) for us,
 //Some AI features are disabled for the civ to save processing power
 if (!(_check) && (((round(random 100))> _chance)||(_unit isKindOf "Woman")||(_unit isKindOf "Woman_EP1"))) exitWith {
 	_unit setSkill 0; _unit allowFleeing 1; {_unit disableAI _x} forEach ["AUTOTARGET","TARGET","FSM"];
-	_unit setVariable ["ws_assassin",true];
-	if (_debug) then {player globalchat format ["ws_assassins.sqf DEBUG: exiting because random is under %1 or is woman",_chance];};
+	_unit setVariable ["ws_suicidebomber",true];
+	if (_debug) then {player globalchat format ["ws_suicidebombers.sqf DEBUG: exiting because random is under %1 or is woman",_chance];};
 };
 
 //If the unit's dead already just exit
 if (!alive _unit) exitWith {};
 
 //After passing all checks we flag the unit to make sure the script doesn't run on it again.
-_unit setVariable ["ws_assassin",true];
-_unit setVariable ["ws_assassin_selected",true];
+_unit setVariable ["ws_suicidebomber",true];
+_unit setVariable ["ws_suicidebomber_selected",true];
 
 //DEBUG
-if (_debug) then {player globalchat format ["ws_assassins.sqf DEBUG: ws_assassins_array:%1",ws_assassins_array];};
+if (_debug) then {player globalchat format ["v.sqf DEBUG: ws_assassins_array:%1",ws_assassins_array];};
 
 //Set up sleeper
 _unit allowfleeing _flee;
 {
-	_skillvalue = (_skillset select _forEachIndex) + (random _skill) - (random _skill);
-	_unit setSkill [_x,_skillvalue];
+_skillvalue = (_skillset select _forEachIndex) + (random _skill) - (random _skill);
+_unit setSkill [_x,_skillvalue];
 } forEach ['aimingAccuracy','aimingShake','aimingSpeed','endurance','spotDistance','spotTime','courage','reloadSpeed','commanding','general'];
 
 //Weapon selection, Random if set to "ran"
 if (_weapon == "") then {
-	_ran = (floor(random(count _weaponarr)));
-	_weapon = _weaponarr select _ran;
+_ran = (floor(random(count _weaponarr)));
+_weapon = _weaponarr select _ran;
 };
-_weaponmag = (getArray (configFile >> "CfgWeapons" >> _weapon >> "magazines")) select 0;
 
 //On the first run we create centers for each possible group, just to be safe
 //(see http://community.bistudio.com/wiki/createCenter)
@@ -222,7 +230,7 @@ switch (typename _target1) do {
 	case "OBJECT": {
 	_target_side = side _target1;
 	};
-	default {player globalchat "ws_assassins DBG: ERROR:  wrong type of _target1 (must be side or name of unit).";};
+	default {player globalchat "ws_suicidebombers DBG: ERROR:  wrong type of _target1 (must be side or name of unit).";};
 };
 
 //creating a group hostile to the target.
@@ -231,12 +239,12 @@ switch (_target_side) do {
 	case east: {_grp = createGroup west;};
 	case resistance: {if ((west getFriend resistance)>0.5)then{_grp = createGroup east;}else{_grp = createGroup west;}; };
 	case civilian: {if ((west getFriend civilian)>0.5)then{_grp = createGroup east;}else{_grp = createGroup west;};};
-	default {"ws_assassins DBG: ERROR: _target1 is side but not a valid one"};
+	default {"ws_suicidebombers DBG: ERROR: _target1 is side but not a valid one"};
 };
 
 //DEBUG
 if (_debug) then {
-player globalchat format ["ws_assassins.sqf DEBUG: _unit:%1,_target1:%2,_target2:%3,_targettype:%4,_weapon:%5,_weaponmag:%6,_target_side:%7",_unit,_target1,_target2,_target_type,_weapon,_weaponmag,_target_side];
+player globalchat format ["ws_suicidebombers.sqf DEBUG: _unit:%1,_target1:%2,_target2:%3,_targettype:%4,_weapon:%5,_weaponmag:%6,_target_side:%7",_unit,_target1,_target2,_target_type,_weapon,_weaponmag,_target_side];
 
 	_string = format ["civ_%1",_unit];
 	player sidechat _string;
@@ -270,34 +278,31 @@ while {alive _unit} do {
 		_listclosealive = [];
 		{if (((side _x == _target_side) && alive _x)) then {_listclosealive set [(count _listclosealive),_x];};} foreach _listclose;
 
-		//DEBUG
-		if (_debug) then {
-			_string = format ["ws_assassins.sqf DEBUG: Outer Loop. _listclos: %1",_listclose];
+			//DEBUG
+			if (_debug) then {
+			_string = format ["ws_suicidebombers.sqf DEBUG: Outer Loop. _listclos: %1",_listclose];
 			player globalchat _string;
-		};
+			};
 
 		//This abomination checks a) if there are enough targets in _listclosealive and b) wether _target1 is close (if _target1 is a side it just checks out)
 		if (((count _listclosealive) >= _target2) && ((_target1 in _listclosealive)||(typename _target1 == "SIDE"))) then {
 
 			//DEBUG
 			if (_debug) then {
-			_string = format ["ws_assassins.sqf DEBUG: Civ targeting _listclosealive: %2, sleeping %3",_target1, _listclosealive,_sleep];
+			_string = format ["ws_suicidebombers.sqf DEBUG: Civ targeting _listclosealive: %2, sleeping %3",_target1, _listclosealive,_sleep];
 			player globalchat _string;
 			};
 			
 			doStop _unit;
 			[_unit] joinSilent grpNull;
 			_unit allowFleeing 0;
-			sleep _sleep;
+			//sleep _sleep;
 			[_unit] joinSilent _grp;
 			_unit setCombatMode "RED";
 			_unit setBehaviour "AWARE";
 			if (_unit knowsAbout _victim <2) then {_unit reveal [_victim,2.5]};
 			_unit lookAt _victim;
-			sleep 1;
-			{_unit addMagazine _weaponmag;} forEach [1,2,3,4];
-			_unit addWeapon _weapon;
-			_unit selectWeapon _weapon;
+			//sleep 1;
 
 			if (typename _target1 == "OBJECT") then {
 				_victim = _target1;
@@ -309,15 +314,32 @@ while {alive _unit} do {
 			[_unit,"allahuAkbar"] call fn_netSay3D;
 
 			while {alive _victim && alive _unit} do {
-				doStop _unit; _unit doTarget _victim; _unit doFire _victim; sleep 0.5;
+
+				_pos = position _victim;
+
+				doStop _unit;
+				_unit doMove _pos;				
+														
+				if(_unit distance _victim < 5) then {					
+				
+					// Shout "Allahu Akbar!" on all clients
+					[_unit,"allahuAkbar"] call fn_netSay3D;
+					
+					sleep 0.5;
+					
+					_explosive = _weapon createVehicle (position _unit);
+					_explosive setDamage 1;							
+				};
+			
+				sleep 0.5;
 			};
 
 			_done = true;
 
 			//DEBUG
 			if (_debug) then {
-				_string = format ["ws_assassins.sqf DEBUG: Civ engaging _target1:%1 or %2 in _listclosealive: %3, sleeping %4 seconds",_target1, (_listclosealive select (floor(random(count _listclosealive)))),_listclosealive,_sleep];
-				player globalchat _string;
+			_string = format ["ws_suicidebombers.sqf DEBUG: Civ engaging _target1:%1 or %2 in _listclosealive: %3, sleeping %4 seconds",_target1, (_listclosealive select (floor(random(count _listclosealive)))),_listclosealive,_sleep];
+			player globalchat _string;
 			};
 		};
 	sleep _perfomancesleep;
