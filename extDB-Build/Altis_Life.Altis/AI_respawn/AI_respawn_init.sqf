@@ -5,11 +5,25 @@ if (!isServer) exitWith {};
 
 _unit 			= _this select 0;
 _lives			= _this select 1;
-_wait 			= _this select 2;
+_delay 			= _this select 2;
 _respawn_point	= _this select 3;
-_move_script	= _this select 4;
+_marker			= _this select 4;
+_group 			= group _unit;
+_unitsGroup 	= units _group;
+_side 			= side _unit; 
 
-[_unit, _lives, _wait, _respawn_point, _move_script] execVM "AI_respawn\AI_respawn.sqf";
-[_unit] execVM _move_script;
+sleep 2;
+
+_AI_unitArray  = [];
+_AI_magArray   = [];
+_AI_wepArray   = [];
+_AI_skillArray = [];
+{_AI_unitArray = _AI_unitArray + [typeOf _x];
+ _AI_magArray = _AI_magArray + [(magazines _x)];
+ _AI_wepArray = _AI_wepArray + [(weapons _x)];
+ _AI_skillArray = _AI_skillArray + [skill _x]}forEach _unitsGroup;
+
+[_unit, _lives, _delay, _respawn_point, _marker, _group, _side, _AI_unitArray,_AI_magArray, _AI_wepArray,_AI_skillArray] execVM "AI_respawn\AI_respawn.sqf";
+//[_unit,_marker] execVM "AI_respawn_UPS\UPS_init.sqf";
 
 if (true)exitWith {};
