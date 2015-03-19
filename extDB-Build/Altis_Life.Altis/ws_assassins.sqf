@@ -238,12 +238,12 @@ switch (_target_side) do {
 if (_debug) then {
 player globalchat format ["ws_assassins.sqf DEBUG: _unit:%1,_target1:%2,_target2:%3,_targettype:%4,_weapon:%5,_weaponmag:%6,_target_side:%7",_unit,_target1,_target2,_target_type,_weapon,_weaponmag,_target_side];
 
-	_string = format ["civ_%1",_unit];
+	_string = format ["Sleeper Agent (%1)", name _unit];
 	player sidechat _string;
 	_mkr = createMarker [_string, (getPos _unit)];
-    _mkr setMarkerType "mil_dot";
-    _mkr setMarkerColor "ColorBlue";
-    _mkr setMarkerText  _string;
+    _mkr setMarkerType "hd_warning";
+	_mkr setMarkerColor "ColorRed";	
+	_mkr setMarkerText  _string;
 
 	[_unit,_mkr] spawn {
          while {alive(_this select 0)} do {
@@ -255,6 +255,10 @@ player globalchat format ["ws_assassins.sqf DEBUG: _unit:%1,_target1:%2,_target2
 
 //Wait until 5 seconds in the mission before beginning the loop
 waitUntil {time > 5};
+
+// Marker
+_mkr = nul;
+_mkrSet = false;
 
 //LOOPING
 //The magical (and ugly) double loop where it all happens
@@ -279,6 +283,25 @@ while {alive _unit} do {
 		//This abomination checks a) if there are enough targets in _listclosealive and b) wether _target1 is close (if _target1 is a side it just checks out)
 		if (((count _listclosealive) >= _target2) && ((_target1 in _listclosealive)||(typename _target1 == "SIDE"))) then {
 
+			// Enable marker
+			if(!_mkrSet) then {
+			
+				_string = " Sleeper Agent!";
+				_mkr = createMarker [_string, (getPos _unit)];
+				_mkr setMarkerType "mil_warning";
+				_mkr setMarkerColor "ColorRed";	
+				_mkr setMarkerText  _string;
+
+				_mkrSet = true;
+				
+				[_unit,_mkr] spawn {
+					 while {alive(_this select 0)} do {
+					 sleep 5;
+					 (_this select 1) setMarkerPos (getPos (_this select 0));
+					 };
+				};					
+			};
+		
 			//DEBUG
 			if (_debug) then {
 			_string = format ["ws_assassins.sqf DEBUG: Civ targeting _listclosealive: %2, sleeping %3",_target1, _listclosealive,_sleep];
@@ -313,17 +336,22 @@ while {alive _unit} do {
 				doStop _unit; _unit doTarget _victim; _unit doFire _victim; sleep 0.5;
 			};
 
-			_done = true;
-
 			//DEBUG
 			if (_debug) then {
 				_string = format ["ws_assassins.sqf DEBUG: Civ engaging _target1:%1 or %2 in _listclosealive: %3, sleeping %4 seconds",_target1, (_listclosealive select (floor(random(count _listclosealive)))),_listclosealive,_sleep];
 				player globalchat _string;
 			};
 		};
-	sleep _perfomancesleep;
+		
+		sleep _perfomancesleep;
 	};
-sleep (_perfomancesleep*3);
+	
+	// Delete marker
+	if(_mkrSet) then  {
+		deleteMarker _mkr;
+	};
+
+	sleep (_perfomancesleep*3);
 };
 
 //Clean up. After the sleeper has been killed we delete his group
